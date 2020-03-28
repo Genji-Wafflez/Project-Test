@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour, ClockListener
             canMove = false;
         }
 
-        transform.position = Vector2.Lerp(transform.position, moveGrid.PlayerTile.transform.position, Time.deltaTime * moveToSpeed);        
+        transform.position += (moveGrid.PlayerPosition - transform.position) * Time.deltaTime * moveToSpeed;        
     }
 
     public void Tock()

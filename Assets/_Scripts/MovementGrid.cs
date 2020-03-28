@@ -13,11 +13,11 @@ public class MovementGrid : MonoBehaviour
 
     public GameObject[,] grid;
 
-    public GameObject PlayerTile
+    public Vector3 PlayerPosition
     {
         get
         {
-            return grid[PlayerY, PlayerX];
+            return getPosition(PlayerX, PlayerY);
         }
     }
     private int playerX;
@@ -30,7 +30,7 @@ public class MovementGrid : MonoBehaviour
 
         set 
         {
-            if(0 <= value && value < width)
+            if(isValidX(value))
             {
                 playerX = value;
             }
@@ -46,7 +46,7 @@ public class MovementGrid : MonoBehaviour
 
         set
         {
-            if (0 <= value && value < height)
+            if (isValidY(value))
             {
                 playerY = value;
             }
@@ -68,5 +68,28 @@ public class MovementGrid : MonoBehaviour
                 grid[row, col] = Instantiate(tile, new Vector2(x, y), Quaternion.Euler(0,0,0));
             }
         }
+
+        playerX = width / 2;
+        playerY = height / 2;
+    }
+
+    public Vector3 getPosition(int x, int y)
+    {
+        if(!isValidX(x) || !isValidY(y))
+        {
+            Debug.LogError("Attempt to access tile out of range");
+            return new Vector3(-1, -1);
+        }
+
+        return new Vector3(x * tileWidth, y * tileHeight);
+    }
+
+    private bool isValidX(int x)
+    {
+        return 0 <= x && x < width;
+    }
+    private bool isValidY(int y)
+    {
+        return 0 <= y && y < height;
     }
 }

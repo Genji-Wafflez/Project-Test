@@ -7,12 +7,7 @@ public class GameClock : MonoBehaviour
     public float timeInterval = 1f;
     public float clock = 0f;
 
-    private List<ClockListener> clockListeners;
-
-    private void Start()
-    {
-        clockListeners = new List<ClockListener>();
-    }
+    private List<ClockListener> clockListeners = new List<ClockListener>();
 
     private void Update()
     {
