@@ -7,6 +7,9 @@ public class PlayerMovement : MonoBehaviour, ClockListener
     public MovementGrid moveGrid;
     public GameClock clock;
 
+    [SerializeField]
+    private Animator animator;
+
     public float tileDistanceThreshold = 0.1f;
 
     public int tileMoveDistance = 1;
@@ -28,18 +31,22 @@ public class PlayerMovement : MonoBehaviour, ClockListener
         if(inputVector.x == 1)
         {
             curDirection = Direction.Right;
+            animator.SetTrigger("Right");
         }
         else if (inputVector.x == -1)
         {
             curDirection = Direction.Left;
+            animator.SetTrigger("Left");
         }
         else if (inputVector.y == 1)
         {
             curDirection = Direction.Up;
+            animator.SetTrigger("Up");
         }
         else if(inputVector.y == -1)
         {
             curDirection = Direction.Down;
+            animator.SetTrigger("Down");
         }
 
         if (canMove)
@@ -59,6 +66,7 @@ public class PlayerMovement : MonoBehaviour, ClockListener
                     moveGrid.PlayerY -= tileMoveDistance;
                     break;
             }
+
 
             canMove = false;
         }

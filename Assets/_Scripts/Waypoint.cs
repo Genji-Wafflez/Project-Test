@@ -37,7 +37,7 @@ public class Waypoint : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        transform.position = new Vector2(X, Y);
+        //transform.position = new Vector2(X, Y);
 
         if (next != null)
         {

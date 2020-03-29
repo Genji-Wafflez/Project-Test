@@ -30,7 +30,8 @@ public class MovementGrid : MonoBehaviour
 
         set 
         {
-            if(isValidX(value))
+            Collider2D collider = Physics2D.OverlapBox(new Vector2(value, PlayerY), Vector2.one, 0f, LayerMask.GetMask("Unwalkable"));
+            if (isValidX(value) && collider == null)
             {
                 playerX = value;
             }
@@ -46,7 +47,8 @@ public class MovementGrid : MonoBehaviour
 
         set
         {
-            if (isValidY(value))
+            Collider2D collider = Physics2D.OverlapBox(new Vector2(playerX, value), Vector2.one, 0f, LayerMask.GetMask("Unwalkable"));
+            if (isValidY(value) && collider == null)
             {
                 playerY = value;
             }
@@ -56,21 +58,8 @@ public class MovementGrid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        grid = new GameObject[height,width];
-
-        for(int row = 0; row < height; row++)
-        {
-            for(int col = 0; col < width; col++)
-            {
-                float x = col * tileWidth;
-                float y = row * tileHeight;
-
-                grid[row, col] = Instantiate(tile, new Vector2(x, y), Quaternion.Euler(0,0,0));
-            }
-        }
-
-        playerX = width / 2;
-        playerY = height / 2;
+        playerX = 10;//width / 2;
+        playerY = 10;//height / 2;
     }
 
     public Vector3 getPosition(int x, int y)
@@ -80,6 +69,7 @@ public class MovementGrid : MonoBehaviour
             Debug.LogError("Attempt to access tile out of range");
             return new Vector3(-1, -1);
         }
+
 
         return new Vector3(x * tileWidth, y * tileHeight);
     }
