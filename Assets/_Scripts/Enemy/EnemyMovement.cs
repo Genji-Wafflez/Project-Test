@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour, ClockListener
 {
-    [SerializeField]
+
     private MovementGrid moveGrid;
-    [SerializeField]
+
     private GameClock clock;
-    [SerializeField]
+
     private Waypoint moveToPoint;
     [SerializeField]
     private float distanceThreshold = 0.01f;
@@ -19,21 +19,26 @@ public class EnemyMovement : MonoBehaviour, ClockListener
 
     private bool canMove;
 
-    void Awake()
+    void Start()
     {
-        transform.position = moveToPoint.transform.position;
-        posX = moveToPoint.X;
-        posY = moveToPoint.Y;
-    }
+        moveGrid = FindObjectOfType<MovementGrid>();
+        clock = FindObjectOfType<GameClock>();
 
-    private void Start()
-    {
         clock.registerListener(this);
     }
     void Update()
     {
         if(moveToPoint == null)
         {
+            moveToPoint = FindObjectOfType<Waypoint>();
+            if (moveToPoint == null)
+            {
+                return;
+            }
+
+            transform.position = moveToPoint.transform.position;
+            posX = moveToPoint.X;
+            posY = moveToPoint.Y;
             return;
         }
 
@@ -66,4 +71,5 @@ public class EnemyMovement : MonoBehaviour, ClockListener
     {
         canMove = true;
     }
+
 }
