@@ -26,20 +26,19 @@ public class EnemyMovement : MonoBehaviour, ClockListener
         clock = FindObjectOfType<GameClock>();
 
         clock.registerListener(this);
-    }
-    void Update()
-    {
-        if(moveToPoint == null)
-        {
-            moveToPoint = FindObjectOfType<Waypoint>();
-            if (moveToPoint == null)
-            {
-                return;
-            }
 
+        if (moveToPoint != null)
+        {
             transform.position = moveToPoint.transform.position;
             posX = moveToPoint.X;
             posY = moveToPoint.Y;
+        }
+    }
+    void Update()
+    {
+        if (moveToPoint == null)
+        {
+            moveToPoint = FindObjectOfType<Waypoint>();
             return;
         }
 

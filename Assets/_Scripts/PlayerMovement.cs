@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour, ClockListener
     private bool canMove = true;
     private Direction curDirection = Direction.None;
 
+    public bool IsFrozen { get; set; }
     void Start()
     {
         clock.registerListener(this);
@@ -49,7 +50,7 @@ public class PlayerMovement : MonoBehaviour, ClockListener
             animator.SetTrigger("Down");
         }
 
-        if (canMove)
+        if (canMove && !IsFrozen)
         {
             switch(curDirection)
             {
@@ -77,5 +78,10 @@ public class PlayerMovement : MonoBehaviour, ClockListener
     public void Tock()
     {
         canMove = true;
+    }
+
+    public void ResetPlayerPosition()
+    {
+        moveGrid.ResetPlayerPosition();
     }
 }

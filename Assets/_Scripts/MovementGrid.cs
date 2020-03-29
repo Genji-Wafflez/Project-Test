@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class MovementGrid : MonoBehaviour
 {
-    public GameObject tile;
+    public LayerMask unwalkable;
     public int width;
     public int height;
 
     public float tileWidth;
     public float tileHeight;
 
-    public GameObject[,] grid;
+    public int originX = 10;
+    public int originY = 10;
 
     public Vector3 PlayerPosition
     {
@@ -30,8 +31,7 @@ public class MovementGrid : MonoBehaviour
 
         set 
         {
-            Collider2D collider = Physics2D.OverlapBox(new Vector2(value, PlayerY), Vector2.one, 0f, LayerMask.GetMask("Unwalkable"));
-            if (isValidX(value) && collider == null)
+            if (isValidX(value) && !Physics2D.OverlapCircle(new Vector2(value, PlayerY), 0.2f, unwalkable))
             {
                 playerX = value;
             }
@@ -47,8 +47,8 @@ public class MovementGrid : MonoBehaviour
 
         set
         {
-            Collider2D collider = Physics2D.OverlapBox(new Vector2(playerX, value), Vector2.one, 0f, LayerMask.GetMask("Unwalkable"));
-            if (isValidY(value) && collider == null)
+
+            if (isValidY(value) && !Physics2D.OverlapCircle(new Vector2(PlayerX, value), 0.2f, unwalkable))
             {
                 playerY = value;
             }
@@ -58,8 +58,8 @@ public class MovementGrid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerX = 10;//width / 2;
-        playerY = 10;//height / 2;
+        playerX = originX;
+        playerY = originY;
     }
 
     public Vector3 getPosition(int x, int y)
@@ -81,5 +81,11 @@ public class MovementGrid : MonoBehaviour
     private bool isValidY(int y)
     {
         return 0 <= y && y < height;
+    }
+
+    public void ResetPlayerPosition()
+    {
+        PlayerX = originX;
+        PlayerY = originY;
     }
 }
