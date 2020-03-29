@@ -9,7 +9,8 @@ public class EnemyMovement : MonoBehaviour, ClockListener
 
     private GameClock clock;
 
-    private Waypoint moveToPoint;
+    public Waypoint moveToPoint;
+
     [SerializeField]
     private float distanceThreshold = 0.01f;
     

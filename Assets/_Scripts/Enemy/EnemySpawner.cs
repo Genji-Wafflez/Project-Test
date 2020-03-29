@@ -19,7 +19,10 @@ public class EnemySpawner : MonoBehaviour
     {
         if(spawnTimer >= spawnInterval)
         {
-            GameObject enemy= Instantiate(gameObject, null);
+            GameObject enemy= Instantiate(gameObject, transform.position, transform.rotation);
+
+            Destroy(enemy.GetComponent<EnemyMovement>());
+            enemy.GetComponent<EnemyMovement>().GetCopyOf<EnemyMovement>(GetComponent<EnemyMovement>());
 
             spawnTimer = 0f;
         }
