@@ -37,11 +37,22 @@ public class Waypoint : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
+        transform.position = new Vector2(X, Y);
+
         if (next != null)
         {
             // Draws a blue line from this transform to the target
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(transform.position, next.transform.position);
+        }
+
+        if (chanceNext != null)
+        {
+            // Draws a blue line from this transform to the target
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, chanceNext.transform.position);
+
+
         }
     }
 }

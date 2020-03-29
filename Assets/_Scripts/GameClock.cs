@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameClock : MonoBehaviour
 {
     public float timeInterval = 1f;
-    public float clock = 0f;
+    private float clock;
 
     private List<ClockListener> clockListeners = new List<ClockListener>();
 
