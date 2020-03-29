@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemy= Instantiate(gameObject, transform.position, transform.rotation);
 
             Destroy(enemy.GetComponent<EnemyMovement>());
-            enemy.GetComponent<EnemyMovement>().GetCopyOf<EnemyMovement>(GetComponent<EnemyMovement>());
+            enemy.AddComponent<EnemyMovement>().GetCopyOf(GetComponent<EnemyMovement>());
 
             spawnTimer = 0f;
         }
